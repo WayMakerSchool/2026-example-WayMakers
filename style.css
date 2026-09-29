@@ -80,3 +80,16 @@ button {
   color: #9ca3af;
   text-decoration: line-through;
 }
+
+.delete-button {
+  padding: 4px 10px;
+  font-size: 13px;
+  color: #6b7280;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+}
+
+.delete-button:hover {
+  color: #dc2626;
+  border-color: #dc2626;
+}

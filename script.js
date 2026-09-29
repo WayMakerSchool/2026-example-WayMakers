@@ -27,7 +27,18 @@ function render() {
       render();
     });
 
+    // 삭제 버튼
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-button";
+    deleteButton.textContent = "삭제";
+    deleteButton.addEventListener("click", () => {
+      todos.splice(index, 1);
+      saveTodos();
+      render();
+    });
+
     li.appendChild(text);
+    li.appendChild(deleteButton);
     list.appendChild(li);
   });
 }
