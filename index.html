@@ -3,20 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WayMaker Todo</title>
+  <title>카드 짝맞추기</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app">
-    <h1>🧭 WayMaker Todo</h1>
-    <p class="subtitle">오늘 할 일을 적어보세요!</p>
+  <main class="game-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">WayMaker Mini Game</p>
+        <h1>카드 짝맞추기</h1>
+      </div>
+      <button id="restart-btn" class="restart-btn" type="button">새 게임</button>
+    </header>
 
-    <form id="todo-form">
-      <input id="todo-input" type="text" placeholder="할 일을 입력하세요" autocomplete="off">
-      <button type="submit">추가</button>
-    </form>
+    <section class="status-bar" aria-label="게임 상태">
+      <div class="stat">
+        <span>점수</span>
+        <strong id="score">0</strong>
+      </div>
+      <div class="stat">
+        <span>기록</span>
+        <strong id="best-score">0</strong>
+      </div>
+      <div class="stat">
+        <span>시도</span>
+        <strong id="moves">0</strong>
+      </div>
+      <div class="stat">
+        <span>시간</span>
+        <strong id="time">00:00</strong>
+      </div>
+    </section>
 
-    <ul id="todo-list"></ul>
+    <p id="message" class="message">카드를 뒤집어 보세요!</p>
+
+    <section id="game-board" class="game-board" aria-label="카드 보드"></section>
   </main>
 
   <script src="script.js"></script>
