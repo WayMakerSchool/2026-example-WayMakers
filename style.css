@@ -1,3 +1,14 @@
+:root {
+  --bg-1: #1d3557;
+  --bg-2: #0f172a;
+  --panel: rgba(15, 23, 42, 0.72);
+  --card-back: linear-gradient(135deg, #8b5cf6, #ec4899);
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --success: #22c55e;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,89 +18,194 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 48px 16px;
+  align-items: center;
+  padding: 24px 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-  background: #f1f4f8;
-  color: #1f2937;
-}
-
-.app {
-  width: 100%;
-  max-width: 420px;
-  padding: 32px 24px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-h1 {
-  margin: 0 0 4px;
-  font-size: 24px;
-}
-
-.subtitle {
-  margin: 0 0 24px;
-  color: #6b7280;
-}
-
-#todo-form {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-#todo-input {
-  flex: 1;
-  padding: 10px 12px;
-  font-size: 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  background: radial-gradient(circle at top, #274c77, var(--bg-2) 45%, #020817 100%);
+  color: var(--text);
 }
 
 button {
-  padding: 10px 16px;
-  font-size: 16px;
-  color: #ffffff;
-  background: #0b4f8a;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  font: inherit;
 }
 
-#todo-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.game-shell {
+  width: min(100%, 760px);
+  padding: 28px 22px 24px;
+  background: var(--panel);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
 }
 
-.todo-item {
+.topbar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  padding: 10px 4px;
-  border-bottom: 1px solid #f1f1f1;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-.todo-item span {
-  flex: 1;
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.restart-btn {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  font-weight: 700;
   cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.todo-item.done span {
-  color: #9ca3af;
-  text-decoration: line-through;
+.restart-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-.delete-button {
-  padding: 4px 10px;
-  font-size: 13px;
-  color: #6b7280;
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  padding: 14px 12px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  text-align: center;
+}
+
+.stat span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.stat strong {
+  font-size: clamp(18px, 2vw, 26px);
+}
+
+.message {
+  margin: 0 0 18px;
+  min-height: 24px;
+  font-size: 16px;
+  color: #dbeafe;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(70px, 1fr));
+  gap: 14px;
+}
+
+.memory-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border: none;
   background: transparent;
-  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  padding: 0;
+  perspective: 900px;
 }
 
-.delete-button:hover {
+.memory-card:disabled {
+  cursor: default;
+}
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.memory-card.is-flipped .card-inner,
+.memory-card.is-matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.card-front {
+  background: var(--card-back);
+  color: white;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+}
+
+.card-back {
+  background: linear-gradient(180deg, #f8fafc, #e2e8f0);
+  color: #0f172a;
+  transform: rotateY(180deg);
+  border: 2px solid rgba(148, 163, 184, 0.5);
+}
+
+.card-back.is-red {
   color: #dc2626;
-  border-color: #dc2626;
+}
+
+.card-back.is-black {
+  color: #111827;
+}
+
+.suit {
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.rank {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+}
+
+.memory-card.is-matched .card-back {
+  background: linear-gradient(180deg, #dcfce7, #bbf7d0);
+  border-color: rgba(34, 197, 94, 0.8);
+}
+
+@media (max-width: 520px) {
+  .game-shell {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .status-bar {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
